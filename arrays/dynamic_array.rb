@@ -12,23 +12,21 @@ for i in (0..q-1)
     arr[i] = input.split(' ').map(&:to_i)
 end
 
-seq_list = {}
+seq_list = []
 for i in (0..n-1)
-  seq_list["s#{i}"] = []
+  seq_list[i] = []
 end
 
 arr.each do |query|
   type = query[0]
   x = query[1]
   y = query[2]
-  index = (x ^ last_answer) % 2
+  index = ((x ^ last_answer) % n)
   if type.eql? 1
-    seq_list["s#{index}"].push y
-  elsif
-    seq = seq_list["s#{index}"]
-    sub_index = (y % seq.count)
-    last_answer = seq[sub_index]
+    seq_list[index].push y
+  elsif type.eql? 2
+    sub_index = (y % seq_list[index].size)
+    last_answer = seq_list[index][sub_index]
     puts last_answer
   end
 end
-puts seq_list
